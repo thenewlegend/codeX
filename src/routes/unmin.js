@@ -1,5 +1,11 @@
 let inputText = '';
 
+import { writable } from 'svelte/store';
+
+export const myGlobalStore = writable(inputText);
+
+    import {decryptString, encryptString} from './secret';
+    
     import Swal from 'sweetalert2';
   
     function showPopup() {
@@ -21,11 +27,25 @@ let inputText = '';
     }
 
     async function Redirect() {
+
+        
+
       const hashValue = await hash();
       if (hashValue === "2f5868af67bba8005184f12158ffdd8e23dd24e73e58d758a3f5f5c9a1d4a729") {
+       
         showPopup();
+
+        
+
         setTimeout(function() {
-            window.location.href = 'https://za-uyy9l8-t2t5-ui8-n-udmw.vercel.app/'; }, 3000);
+
+          const key = inputText;
+          const decryptedText = decryptString('U2FsdGVkX1/ryRDrW1U8L3sRWq5GcR8OPaOIHSw2xTgNnmbbRUxqs5k8TdS6LSOFdnqu/rfXuRkH2M+rmzBQHDDgHt+JW30LOls9EgpZSwcNZ5l3cByisltoseKhPncnM1D2351IA46LkB0tQZ/log==', key);
+
+          window.location.href = decryptedText;
+            
+        }, 2500);
+
 
       } else {
         showErrorPopup();      }
